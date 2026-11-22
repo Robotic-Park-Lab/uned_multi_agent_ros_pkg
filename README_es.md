@@ -32,6 +32,26 @@ ros2 run uned_swarm_task centralized_formation_controller
 
 Ver [uned_swarm_config/README_es.md](uned_swarm_config/README_es.md) para el esquema de `.yaml` de experiencia y el conjunto actual de ficheros de configuración de experimentos en `resources/`.
 
+### Lanzamientos disponibles
+
+| Fichero de lanzamiento | Descripción |
+|---|---|
+| `generic.launch.py` | Lanzamiento principal parametrizado: `config_file:=<experimento>.yaml` de `uned_swarm_config/resources/` (por defecto `default.yaml`, que no existe: pasa siempre `config_file`). Arranca Webots o Gazebo, un driver por robot, el nodo central si `Architecture.mode: centralized`, el supervisor y el monitor de CPU. |
+| `AC10_Sensor_Webots.launch.py` | Antiguo experimento AC10 (Crazyflie + Khepera IV) escrito a mano, en Webots. **Roto**: carga `AC10_RoboticPark.yaml`/`.wbt`/`.rviz`, que no están en el repositorio, y el paquete eliminado `uned_crazyflie_webots`. |
+| `AC10_Sensor_Gazebo.launch.py` | El mismo experimento AC10 en Gazebo. **Roto** por el mismo `AC10_RoboticPark.yaml` que falta. |
+
+Experiencias para `generic.launch.py`:
+
+| `config_file` | Descripción |
+|---|---|
+| `MultiRobot10_Webots.yaml` | 4 Crazyflie + 6 Khepera IV, virtuales en Webots: formación por distancias (`gradient`) con referencia al origen, comunicación por eventos, supervisor `MultiRobot_topics.yaml`. |
+| `MultiRobot10_Gazebo.yaml` | La misma flota y formación en Gazebo (`Empty.world`). |
+| `RIAI2023_Centralized_Webots.yaml` / `RIAI2023_Centralized.yaml` | 5 Crazyflie + 4 Khepera IV (RIAI 2023), virtual / real: formación calculada por el nodo central `centralized_formation_controller`. |
+| `RIAI2023_Distributed_Webots.yaml` / `RIAI2023_Distributed.yaml` | La misma flota, virtual / real: formación distribuida, cada robot ejecuta su ley `gradient` en su driver de ROS 2. |
+| `RIAI2023_Onboard_Webots.yaml` / `RIAI2023_Onboard.yaml` | La misma flota, virtual / real: formación distribuida con `task.Onboard: True` (en el Crazyflie real la ley se ejecuta en el firmware). |
+
+`MultiRobot_topics.yaml` y `RIAI2023_topics.yaml` son guiones del supervisor, no experiencias. Las experiencias de todo el laboratorio están en [`RoboticPark/LAUNCHES_es.md`](https://github.com/Robotic-Park-Lab/RoboticPark/blob/humble-dev/LAUNCHES_es.md).
+
 ## Autores ✒️
 * **[Francisco José Mañas Álvarez](https://github.com/FranciscoJManasAlvarez)** :envelope: fjmanas@dia.uned.es
 
