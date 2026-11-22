@@ -39,3 +39,11 @@ Los 3 paquetes **compilan limpio** (`colcon build` real, sin errores). Pero `col
 - [ ] Ninguna de las matemáticas de control (`PIDController` de `tello_gazebo_driver.py`/`centralized_formation_controller.py`, el controlador de posición de `turtlebot_driver.py`, la lógica de reconfiguración de `swarm_reconfiguration.py`) tiene cobertura unitaria — mismo tipo de deuda que ya se resolvió en Crazyflie/Khepera extrayendo la lógica pura y testeándola con `pytest`, no intentado aquí.
 
 Verificado con un `colcon build`/`colcon test` real y aislado (workspace de verificación aparte, para no interferir con el `uned_swarm_ros_pkg` que todavía queda clonado localmente con el nombre antiguo) — no una suposición a partir de leer el código.
+
+## 2026-11-22 — LED en los mundos y lanzamientos documentados
+
+- [x] **LED `led_ring` en los 3 mundos de `uned_swarm_config/worlds/`**: el driver de Webots de `uned_crazyflie_ros_pkg` lo necesita al arrancar. → `37bc5d5`.
+- [x] **Lanzamientos y experiencias en el README** → `30b6bdb`: `generic.launch.py`, los dos `AC10_*` y las 8 experiencias de `resources/`.
+- [ ] `generic.launch.py` tiene `default.yaml` como valor por defecto de `config_file`, y ese fichero no existe: hay que pasar siempre `config_file`.
+- [ ] `AC10_Sensor_*.launch.py` siguen rotos (falta `AC10_RoboticPark.yaml`), como ya se anotó.
+- [ ] El driver del Khepera IV no ha pasado por la refactorización del driver de Crazyflie; en una flota híbrida de prueba (4 Crazyflie + 3 Khepera IV) el `global_error` del Khepera se quedó en ~1,3 mientras el de cada dron bajaba por debajo de 0,3.
